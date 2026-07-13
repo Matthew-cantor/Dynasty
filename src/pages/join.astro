@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const steps = [
+  { t: 'Tell us you’re interested', d: 'Fill in the short form — no payment, no commitment. It takes about a minute.' },
+  { t: 'We’ll be in touch', d: 'We confirm the details with you: schedule, location, cost, and fit for your child’s age.' },
+  { t: 'Secure the spot', d: 'Once the first season is set, interested families get first word and a chance to lock in a place.' },
+];
+
+const faqs = [
+  { q: 'Do I pay anything now?', a: 'No. This is an interest list only — there’s no payment or account required in this first season.' },
+  { q: 'What ages is it for?', a: 'The house league is built for ages 8–15 in year one. If your child is close to that range, reach out and we’ll advise.' },
+  { q: 'When does the first season start?', a: 'Dates are being finalized. Join the list and you’ll be among the first to know once they’re set.' },
+  { q: 'Where is it held?', a: 'In Bolton, Ontario. The exact venue is being confirmed and will be posted here as soon as it’s locked.' },
+];
+---
+
+<BaseLayout
+  title="Express Interest — Dynasty Volleyball Club"
+  description="Reserve a spot in Dynasty's house league. No payment today — tell us you're interested and we'll be in touch about the first season."
+>
+  <PageHero
+    eyebrow="Join"
+    title="Reserve your spot."
+    lead="No payment today — just tell us you're interested and we'll be in touch about the first season."
+  />
+
+  <section class="section">
+    <div class="container join-grid">
+      <!-- How it works -->
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="section-title jt">Three simple steps.</h2>
+        <ol class="steps">
+          {steps.map((s, i) => (
+            <li class="step">
+              <span class="step-n mono">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="step-t">{s.t}</h3>
+                <p class="step-d">{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Interest form (UI only) -->
+      <div class="form-card">
+        <h3 class="form-title">Express interest</h3>
+        <p class="form-sub">Takes about a minute. Fields marked with * are required.</p>
+        <form class="form" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="player">Player first name *</label>
+              <input id="player" name="player" type="text" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="age">Player age *</label>
+              <select id="age" name="age">
+                <option value="" selected disabled>Select</option>
+                {Array.from({ length: 8 }, (_, i) => 8 + i).map((n) => (
+                  <option value={n}>{n}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="parent">Parent / guardian name *</label>
+            <input id="parent" name="parent" type="text" autocomplete="name" />
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="msg">Anything else?</label>
+            <textarea id="msg" name="msg" placeholder="Experience, questions, or anything we should know."></textarea>
+          </div>
+          <button class="btn-silver form-submit" type="submit">Send interest</button>
+          <p class="form-note">This form isn’t connected yet — we’ll wire it to email in a later step.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--wash">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Good to know</p>
+        <h2 class="section-title">Common questions.</h2>
+      </div>
+      <div class="faqs">
+        {faqs.map((f) => (
+          <div class="faq">
+            <h3 class="faq-q">{f.q}</h3>
+            <p class="faq-a">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Form isn't wired up yet — block submission so field values never
+    // end up in the URL / browser history via a default GET submit.
+    document.querySelector('.form')?.addEventListener('submit', (e) => e.preventDefault());
+  </script>
+
+  <CtaBand
+    title="Still have questions?"
+    text="We’re happy to help you figure out if the house league is a fit."
+    label="Contact us"
+    href={`${base}/contact`}
+  />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .join-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .jt { text-align: left; margin: 6px 0 28px; }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; }
+  .step-n { color: var(--gold-deep); font-weight: 700; font-size: 14px; padding-top: 3px; }
+  .step-t { color: var(--maroon); font-size: 20px; }
+  .step-d { color: var(--grey); font-size: 15px; margin: 6px 0 0; }
+
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 34px 32px;
+    box-shadow: 0 18px 44px rgba(110, 14, 50, 0.08);
+  }
+  .form-title { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 26px; }
+  .form-sub { color: var(--grey); font-size: 14px; margin: 8px 0 22px; }
+  .form-submit { margin-top: 4px; justify-self: start; }
+
+  .faqs { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 44px; }
+  .faq-q { color: var(--maroon); font-size: 18px; }
+  .faq-a { color: var(--grey); font-size: 15px; margin: 8px 0 0; line-height: 1.6; }
+
+  @media (max-width: 860px) {
+    .join-grid { grid-template-columns: 1fr; gap: 40px; }
+    .faqs { grid-template-columns: 1fr; }
+  }
+</style>

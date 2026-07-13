@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Page Not Found — Dynasty Volleyball Club">
+  <section class="nf" id="hero">
+    <div class="nf-media" aria-hidden="true"></div>
+    <div class="container nf-content">
+      <p class="eyebrow nf-eyebrow">404</p>
+      <h1 class="nf-title">Out of bounds.</h1>
+      <p class="nf-lead">That page doesn't exist — but the season's just getting started.</p>
+      <div class="nf-actions">
+        <a class="btn-silver" href={`${base}/`}>Back to home</a>
+        <a class="btn-ghost" href={`${base}/house-league`}>Explore the program &rsaquo;</a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .nf {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+  }
+  .nf-media {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 120% at 72% 12%, rgba(201, 162, 39, 0.18), transparent 55%),
+      linear-gradient(150deg, #86123E 0%, #560A26 55%, #3E0719 100%);
+  }
+  .nf-content { position: relative; z-index: 1; padding-top: var(--header-h); }
+  .nf-eyebrow { color: var(--gold); margin: 0 0 16px; }
+  .nf-title { color: #fff; font-size: clamp(40px, 7vw, 66px); }
+  .nf-lead {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(16px, 2.2vw, 19px);
+    max-width: 480px;
+    margin: 18px 0 0;
+  }
+  .nf-actions { margin-top: 26px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+</style>

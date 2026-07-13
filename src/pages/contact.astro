@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const methods = [
+  { k: 'Email', v: 'hello@dynastyvb.ca', href: 'mailto:hello@dynastyvb.ca' },
+  { k: 'Phone', v: 'To be announced', href: null },
+  { k: 'Location', v: 'Bolton, Ontario', href: null },
+  { k: 'Response time', v: 'Usually within a couple of days', href: null },
+];
+---
+
+<BaseLayout
+  title="Contact — Dynasty Volleyball Club"
+  description="Get in touch with Dynasty Volleyball Club in Bolton, Ontario. Questions about the house league or the upcoming rep team — we're happy to help."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Get in touch."
+    lead="Questions about the house league, the upcoming rep team, or whether Dynasty is a fit for your child? Reach out."
+  />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <!-- Details -->
+      <div>
+        <p class="eyebrow">Ways to reach us</p>
+        <h2 class="section-title ct">We read every message.</h2>
+        <ul class="methods">
+          {methods.map((m) => (
+            <li class="method">
+              <span class="m-k mono">{m.k}</span>
+              {m.href
+                ? <a class="m-v m-link" href={m.href}>{m.v}</a>
+                : <span class="m-v">{m.v}</span>}
+            </li>
+          ))}
+        </ul>
+        <div class="map" aria-hidden="true" data-ph="Map — Bolton, Ontario"></div>
+      </div>
+
+      <!-- Inquiry form (UI only) -->
+      <div class="form-card">
+        <h3 class="form-title">Send a message</h3>
+        <p class="form-sub">Fields marked with * are required.</p>
+        <form class="form" novalidate>
+          <div class="field">
+            <label for="name">Name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="cemail">Email *</label>
+            <input id="cemail" name="email" type="email" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" />
+          </div>
+          <div class="field">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="How can we help?"></textarea>
+          </div>
+          <button class="btn-silver form-submit" type="submit">Send message</button>
+          <p class="form-note">This form isn’t connected yet — we’ll wire it to email in a later step.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Form isn't wired up yet — block submission so field values never
+    // end up in the URL / browser history via a default GET submit.
+    document.querySelector('.form')?.addEventListener('submit', (e) => e.preventDefault());
+  </script>
+
+  <CtaBand
+    title="Ready to join the first season?"
+    text="No payment today — just tell us you're interested and we'll follow up."
+    label="Express Interest"
+    href={`${base}/join`}
+  />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .ct { text-align: left; margin: 6px 0 26px; }
+
+  .methods { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 2px; }
+  .method {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .method:first-child { border-top: 1px solid var(--line); }
+  .m-k { color: var(--grey); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .m-v { color: var(--maroon); font-weight: 600; font-size: 16px; }
+  .m-link { text-decoration: none; }
+  .m-link:hover, .m-link:focus-visible { color: var(--gold-deep); }
+
+  .map {
+    height: 220px;
+    border-radius: 20px;
+    background:
+      radial-gradient(120% 120% at 30% 20%, rgba(201, 162, 39, 0.14), transparent 55%),
+      linear-gradient(140deg, #BE2A60, #A1174A 70%, #6E0E32);
+    position: relative;
+  }
+  .map::after {
+    content: attr(data-ph);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.34);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 34px 32px;
+    box-shadow: 0 18px 44px rgba(110, 14, 50, 0.08);
+  }
+  .form-title { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 26px; }
+  .form-sub { color: var(--grey); font-size: 14px; margin: 8px 0 22px; }
+  .form-submit { margin-top: 4px; justify-self: start; }
+
+  @media (max-width: 860px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>

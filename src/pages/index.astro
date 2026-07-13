@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout>
+  <!-- ============ HERO (dark, full-bleed) ============ -->
+  <section class="hero" id="hero">
+    <!-- Placeholder for a future background video. Swap this div for a
+         <video autoplay muted loop playsinline> when footage is ready. -->
+    <div class="hero-media" aria-hidden="true"></div>
+    <!-- ~75% royal-blue tint so white text stays legible over the video. -->
+    <div class="hero-tint" aria-hidden="true"></div>
+
+    <div class="hero-content container">
+      <p class="eyebrow hero-eyebrow">Bolton, ON &middot; House League &middot; Est. 2026</p>
+      <h1 class="hero-title">Train like<br />you mean it.</h1>
+      <p class="hero-lead">
+        A weekly house league built on real coaching and real fundamentals.
+        First season starting soon.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-silver" href={`${base}/join`}>Reserve your spot</a>
+        <a class="btn-ghost" href={`${base}/house-league`}>Explore the program &rsaquo;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPEC BAND ============ -->
+  <section class="spec container" aria-label="Program at a glance">
+    <div class="cell"><span class="k">Program</span><span class="v">House League</span></div>
+    <div class="cell"><span class="k">Ages</span><span class="v">8&ndash;15</span></div>
+    <div class="cell"><span class="k">Cadence</span><span class="v">Weekly</span></div>
+    <div class="cell"><span class="k">Location</span><span class="v">Bolton, ON</span></div>
+  </section>
+
+  <!-- ============ FEATURE TILE ============ -->
+  <section class="tile wash">
+    <div class="container">
+      <p class="eyebrow">The House League</p>
+      <h2 class="tile-title">Fundamentals first.</h2>
+      <p class="lead tile-lead">
+        A camp-style weekly program — not a competitive team. Passing, setting,
+        serving, and game sense, coached with intent. Small by design, so every
+        player gets real reps.
+      </p>
+      <p class="linkrow"><a class="gold-link" href={`${base}/house-league`}>See the full program &rsaquo;</a></p>
+      <div class="shot" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ============ REP TEAM CARD ============ -->
+  <section class="repwrap container">
+    <div class="repcard">
+      <p class="eyebrow rep-eyebrow">Year Two</p>
+      <h2 class="rep-title">A rep team is coming.</h2>
+      <p class="lead rep-lead">
+        The house league is just the beginning. A competitive travel team is
+        planned for next season — a place to grow, long-term.
+      </p>
+      <a class="btn-silver" href={`${base}/contact`}>Stay in the loop</a>
+    </div>
+  </section>
+
+  <!-- ============ BENTO ============ -->
+  <section class="bento container">
+    <div class="card">
+      <div class="avatars" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h3 class="card-title">Coached with intent.</h3>
+      <p class="card-copy">
+        Meet the people running every session — coaching background,
+        credentials, and playing experience.
+      </p>
+      <a class="gold-link" href={`${base}/coaches`}>Meet the coaches &rsaquo;</a>
+    </div>
+    <div class="card">
+      <h3 class="card-title">Reserve your spot.</h3>
+      <p class="card-copy">
+        No payment today — just tell us you're interested and we'll be in touch
+        about the first season.
+      </p>
+      <a class="btn-maroon" href={`${base}/join`}>Express Interest</a>
+    </div>
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+  }
+  .hero-media {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 120% at 72% 12%, rgba(201, 162, 39, 0.18), transparent 55%),
+      linear-gradient(150deg, #86123E 0%, #560A26 55%, #3E0719 100%);
+  }
+  .hero-tint {
+    position: absolute;
+    inset: 0;
+    background: var(--crimson);
+    opacity: 0.72; /* tune down once real video sits behind it */
+    mix-blend-mode: multiply;
+  }
+  .hero-content { position: relative; z-index: 1; padding-top: var(--header-h); }
+  .hero-eyebrow { color: var(--gold); margin: 0 0 18px; }
+  .hero-title { color: #fff; font-size: clamp(44px, 8vw, 74px); }
+  .hero-lead {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(17px, 2.4vw, 20px);
+    max-width: 500px;
+    margin: 20px 0 0;
+  }
+  .hero-actions { margin-top: 26px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+
+  /* ---- SPEC BAND ---- */
+  .spec {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-top: 56px;
+    margin-bottom: 8px;
+  }
+  .spec .cell { padding: 26px 28px; border-right: 1px solid var(--line); }
+  .spec .cell:last-child { border-right: 0; }
+  .spec .k {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+  .spec .v {
+    display: block;
+    font-family: var(--font-disp);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--maroon);
+    margin-top: 8px;
+  }
+
+  /* ---- FEATURE TILE ---- */
+  .tile { padding: 76px 0; text-align: center; }
+  .tile.wash { background: var(--wash); }
+  .tile-title { color: var(--maroon); font-size: clamp(32px, 5vw, 44px); margin-top: 6px; }
+  .tile-lead { margin: 16px auto 0; max-width: 560px; }
+  .linkrow { margin: 18px 0 0; }
+  .shot {
+    margin: 36px auto 0;
+    max-width: 780px;
+    height: 320px;
+    border-radius: 22px;
+    background:
+      radial-gradient(120% 120% at 38% 20%, rgba(201, 162, 39, 0.18), transparent 55%),
+      linear-gradient(140deg, #BE2A60, #A1174A 65%, #6E0E32);
+    box-shadow: 0 18px 44px rgba(110, 14, 50, 0.2);
+  }
+
+  /* ---- REP CARD ---- */
+  .repwrap { padding: 40px 24px; }
+  .repcard {
+    border-radius: 28px;
+    padding: 78px 30px;
+    text-align: center;
+    background:
+      radial-gradient(120% 130% at 50% -10%, rgba(201, 162, 39, 0.22), transparent 55%),
+      linear-gradient(160deg, #A1174A, #6E0E32);
+  }
+  .rep-eyebrow { color: var(--gold); }
+  .rep-title { color: #fff; font-size: clamp(32px, 5vw, 44px); margin-top: 6px; }
+  .rep-lead { color: #E4C6D0; margin: 16px auto 24px; max-width: 520px; }
+
+  /* ---- BENTO ---- */
+  .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-bottom: 40px; }
+  .card { background: var(--wash); border-radius: 28px; padding: 52px 30px; text-align: center; }
+  .card-title { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 28px; }
+  .card-copy { color: var(--grey); font-size: 15px; margin: 12px auto 20px; max-width: 320px; }
+  .avatars { display: flex; gap: 10px; justify-content: center; margin-bottom: 22px; }
+  .avatars span { width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(140deg, #BE2A60, #A1174A); }
+
+  @media (max-width: 720px) {
+    .spec { grid-template-columns: 1fr 1fr; }
+    .spec .cell:nth-child(2) { border-right: 0; }
+    .spec .cell:nth-child(1), .spec .cell:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .bento { grid-template-columns: 1fr; }
+  }
+</style>

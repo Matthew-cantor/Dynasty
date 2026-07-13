@@ -1,0 +1,52 @@
+---
+// Compact dark masthead for interior pages. Keeps id="hero" so the
+// site header stays transparent over it, then fades to solid navy on scroll.
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+}
+const { eyebrow, title, lead } = Astro.props;
+---
+<section class="page-hero" id="hero">
+  <div class="ph-media" aria-hidden="true"></div>
+  <div class="ph-tint" aria-hidden="true"></div>
+  <div class="ph-content container">
+    {eyebrow && <p class="eyebrow ph-eyebrow">{eyebrow}</p>}
+    <h1 class="ph-title">{title}</h1>
+    {lead && <p class="ph-lead">{lead}</p>}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: 46vh;
+    overflow: hidden;
+    color: #fff;
+  }
+  .ph-media {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 120% at 76% 8%, rgba(201, 162, 39, 0.16), transparent 55%),
+      linear-gradient(150deg, #86123E, #560A26 60%, #3E0719);
+  }
+  .ph-tint { position: absolute; inset: 0; background: var(--crimson); opacity: 0.5; mix-blend-mode: multiply; }
+  .ph-content {
+    position: relative;
+    z-index: 1;
+    padding-top: calc(var(--header-h) + 44px);
+    padding-bottom: 54px;
+  }
+  .ph-eyebrow { color: var(--gold); margin: 0 0 16px; }
+  .ph-title { color: #fff; font-size: clamp(38px, 6.5vw, 64px); }
+  .ph-lead {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(16px, 2.2vw, 19px);
+    max-width: 580px;
+    margin: 18px 0 0;
+  }
+</style>

@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Placeholder roster — real names, photos, and bios to be added later.
+const coaches = [
+  { role: 'Head Coach', tags: ['Certification', 'Playing background', 'Years coaching'] },
+  { role: 'Assistant Coach', tags: ['Certification', 'Playing background'] },
+  { role: 'Skills Coach', tags: ['Certification', 'Specialty'] },
+  { role: 'Team Support', tags: ['First aid', 'Role'] },
+];
+---
+
+<BaseLayout
+  title="Coaches & Staff — Dynasty Volleyball Club"
+  description="Meet the coaches behind Dynasty's house league — coaching background, credentials, and playing experience."
+>
+  <PageHero
+    eyebrow="Coaches & Staff"
+    title="Coached with intent."
+    lead="The people running every session — their background, credentials, and playing experience. Full profiles coming as the staff is confirmed."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="coach-grid">
+        {coaches.map((c) => (
+          <article class="coach">
+            <div class="coach-photo" aria-hidden="true" data-ph="Photo"></div>
+            <div class="coach-body">
+              <span class="coach-role mono">{c.role}</span>
+              <h3 class="coach-name">Coach Name</h3>
+              <p class="coach-bio">
+                A short bio goes here — coaching philosophy, playing history, and
+                what this coach brings to the gym each week.
+              </p>
+              <ul class="coach-tags">
+                {c.tags.map((t) => <li>{t}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="roster-note">Staff profiles are being finalized — names, photos, and credentials will appear here as coaches are confirmed.</p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="section section--wash">
+    <div class="container phil">
+      <p class="eyebrow">Our approach</p>
+      <h2 class="section-title">Teach the fundamentals. Keep it fun.</h2>
+      <p class="lead phil-lead">
+        Dynasty coaches are here to develop players, not just run drills. That
+        means correcting technique in the moment, keeping every athlete moving,
+        and building the kind of confidence that makes kids want to come back
+        next Saturday.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Want in on the first season?"
+    text="Spots are limited and the group is kept small on purpose."
+    label="Express Interest"
+    href={`${base}/join`}
+  />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .coach-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  .coach {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+    background: var(--wash);
+    border-radius: 24px;
+    padding: 24px;
+    align-items: center;
+  }
+  .coach-photo {
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    background: linear-gradient(140deg, #BE2A60, #A1174A 70%, #6E0E32);
+    position: relative;
+  }
+  .coach-photo::after {
+    content: attr(data-ph);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.32);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .coach-role { display: block; color: var(--gold-deep); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .coach-name { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 23px; margin-top: 4px; }
+  .coach-bio { color: var(--grey); font-size: 14.5px; margin: 10px 0 14px; line-height: 1.6; }
+  .coach-tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .coach-tags li {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 980px;
+    padding: 5px 11px;
+  }
+  .roster-note { color: var(--grey); font-size: 13.5px; text-align: center; margin-top: 26px; }
+
+  .phil { text-align: center; max-width: 680px; margin-inline: auto; }
+  .phil-lead { margin: 16px auto 0; }
+
+  @media (max-width: 860px) {
+    .coach-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .coach { grid-template-columns: 1fr; }
+    .coach-photo { width: 140px; }
+  }
+</style>

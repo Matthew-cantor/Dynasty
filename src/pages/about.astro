@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Footer from '../components/Footer.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const roadmap = [
+  { yr: 'Year One', t: 'The House League', d: 'A weekly, camp-style training program in Bolton — fundamentals first, group kept small so every player develops.' },
+  { yr: 'Year Two', t: 'The Rep Team', d: 'A competitive travel team for players ready to test themselves — tryouts, a real schedule, and a path forward.' },
+  { yr: 'Beyond', t: 'A Club That Lasts', d: 'More teams, more coaches, and a home for players who want to grow with the game year after year.' },
+];
+---
+
+<BaseLayout
+  title="About — Dynasty Volleyball Club"
+  description="Dynasty is a new volleyball club in Bolton, Ontario — starting with a house league and building toward a competitive rep program."
+>
+  <PageHero
+    eyebrow="Our Story"
+    title="Built to grow."
+    lead="Dynasty is a new club in Bolton, Ontario. We're starting with a house league done right — and building toward something bigger."
+  />
+
+  <!-- MISSION -->
+  <section class="section">
+    <div class="container mission">
+      <p class="eyebrow">Why Dynasty</p>
+      <h2 class="section-title mt">Start with the fundamentals. Build something that lasts.</h2>
+      <p class="lead mission-lead">
+        Plenty of programs promise the world. We'd rather earn it one season at a
+        time. Dynasty begins with a house league focused on real coaching and
+        real reps — the kind of foundation that makes better players and keeps
+        kids coming back. It's year one, and we're taking it seriously.
+      </p>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section section--wash">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The plan</p>
+        <h2 class="section-title">Where we're headed.</h2>
+      </div>
+      <ol class="roadmap">
+        {roadmap.map((r, i) => (
+          <li class="phase">
+            <span class="phase-n mono">{String(i + 1).padStart(2, '0')}</span>
+            <span class="phase-yr mono">{r.yr}</span>
+            <h3 class="phase-t">{r.t}</h3>
+            <p class="phase-d">{r.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Be part of season one."
+    text="The house league is where it starts. Reserve your spot for the first season."
+    label="Express Interest"
+    href={`${base}/join`}
+  />
+  <Footer />
+</BaseLayout>
+
+<style>
+  .mission { max-width: 760px; }
+  .mt { text-align: left; margin: 6px 0 18px; }
+  .mission-lead { margin: 0; }
+
+  .roadmap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .phase { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 32px 28px; }
+  .phase-n { display: block; color: var(--gold-deep); font-weight: 700; font-size: 14px; }
+  .phase-yr { display: block; color: var(--grey); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; margin-top: 14px; }
+  .phase-t { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 24px; margin-top: 4px; }
+  .phase-d { color: var(--grey); font-size: 15px; margin: 12px 0 0; line-height: 1.6; }
+
+  @media (max-width: 860px) {
+    .roadmap { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# Astro generated types/cache
+.astro/
+
+# environment variables (never commit credentials)
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# local tooling state (not part of the site)
+.superpowers/
+.claude/settings.local.json
+
+# internal planning docs — keep out of the public repo
+Dynasty_Website_Product_Vision copy.md
+
+# source logo art at the repo root (the site itself uses public/logos/, which
+# stays tracked); anchored with "/" so it can't swallow public/logos on
+# case-insensitive filesystems. Remove this line to version the source art.
+/Logos/
+
+# logs
+npm-debug.log*

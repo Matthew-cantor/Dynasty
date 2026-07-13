@@ -1,0 +1,29 @@
+---
+// Full-width navy call-to-action band used at the foot of interior pages.
+interface Props {
+  title: string;
+  text?: string;
+  label: string;
+  href: string;
+}
+const { title, text, label, href } = Astro.props;
+---
+<section class="cta-band">
+  <div class="container">
+    <h2 class="cta-title">{title}</h2>
+    {text && <p class="cta-text">{text}</p>}
+    <a class="btn-silver" href={href}>{label}</a>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    text-align: center;
+    padding: 84px 0;
+    background:
+      radial-gradient(120% 130% at 50% -10%, rgba(201, 162, 39, 0.2), transparent 55%),
+      linear-gradient(160deg, #A1174A, #6E0E32);
+  }
+  .cta-title { color: #fff; font-size: clamp(30px, 5vw, 44px); }
+  .cta-text { color: #E4C6D0; font-size: 18px; max-width: 520px; margin: 16px auto 26px; }
+</style>
