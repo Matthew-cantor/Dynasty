@@ -6,14 +6,14 @@ import Footer from '../components/Footer.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const details = [
-  { k: 'Ages', v: '8–15', tbd: false },
+  { k: 'Ages', v: '11–16', tbd: false },
   { k: 'Format', v: 'Camp-style training', tbd: false },
   { k: 'Cadence', v: 'Weekly', tbd: false },
-  { k: 'Day & time', v: 'To be announced', tbd: true },
-  { k: 'Location', v: 'Bolton, Ontario', tbd: false },
-  { k: 'Venue', v: 'To be confirmed', tbd: true },
-  { k: 'Season length', v: 'To be announced', tbd: true },
-  { k: 'Cost', v: 'To be announced', tbd: true },
+  { k: 'Day & time', v: 'Tuesdays 6:30-8', tbd: false },
+  { k: 'Location', v: ' Caledon, ON', tbd: false },
+  { k: 'Venue', v: 'Mayfield Public School', tbd: false },
+  { k: 'Season length', v: '11 weeks, Oct 6th-Dec 15th', tbd: false },
+  { k: 'Cost', v: '$275 per Season', tbd: false },
 ];
 
 const session = [
@@ -28,7 +28,7 @@ const skills = [
   { t: 'Setting', d: 'Hand shape, footwork, and consistent, hittable balls.' },
   { t: 'Serving', d: 'Toss, contact, and serving with purpose and control.' },
   { t: 'Defense', d: 'Ready position, movement, and pursuing every ball.' },
-  { t: 'Game sense', d: 'Rotations, communication, and decisions under pressure.' },
+  { t: 'Game Play', d: 'Rotations, communication, and decisions under pressure.' },
 ];
 ---
 
@@ -57,7 +57,7 @@ const skills = [
           </div>
         ))}
       </div>
-      <p class="details-note">Schedule, venue, season length, and cost are being finalized — this page updates the moment they’re set.</p>
+      <p class="details-note">
     </div>
   </section>
 
@@ -66,7 +66,7 @@ const skills = [
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">A typical session</p>
-        <h2 class="section-title">What an hour looks like.</h2>
+        <h2 class="section-title">What an session looks like.</h2>
       </div>
       <div class="session">
         <ol class="steps">

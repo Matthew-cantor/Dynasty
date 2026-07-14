@@ -8,10 +8,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 // Placeholder roster — real names, photos, and bios to be added later.
 const coaches = [
-  { role: 'Head Coach', tags: ['Certification', 'Playing background', 'Years coaching'] },
-  { role: 'Assistant Coach', tags: ['Certification', 'Playing background'] },
-  { role: 'Skills Coach', tags: ['Certification', 'Specialty'] },
-  { role: 'Team Support', tags: ['First aid', 'Role'] },
+  { name: 'Bonnie Ghaffari', role: 'Head Coach', tags: ['Volleyball Canada Certified','Silver Medalist @ Volleyball Canada Nationals', '6 Years coaching'] },
+  { name: 'Emma Mcevoy', role: 'Assistant Coach', tags: ['Certification', 'Playing background'] },
+  { name: 'Lilia Farid', role: 'Assistant Coach', tags: ['Certification', 'Specialty'] },
+  { name: 'Matthew Cantor', role: 'Ops', tags: ['Genius','Billionare', 'Playboy','Philantropist'] },
 ];
 ---
 
@@ -22,7 +22,7 @@ const coaches = [
   <PageHero
     eyebrow="Coaches & Staff"
     title="Coached with intent."
-    lead="The people running every session — their background, credentials, and playing experience. Full profiles coming as the staff is confirmed."
+    lead="Every coach on our staff brings a genuine love for the game, real playing experience, and proven leadership in the sport. Meet the people leading every session — their background, credentials, and passion for volleyball."
   />
 
   <section class="section">
@@ -33,7 +33,7 @@ const coaches = [
             <div class="coach-photo" aria-hidden="true" data-ph="Photo"></div>
             <div class="coach-body">
               <span class="coach-role mono">{c.role}</span>
-              <h3 class="coach-name">Coach Name</h3>
+              <h3 class="coach-name">{c.name}</h3>
               <p class="coach-bio">
                 A short bio goes here — coaching philosophy, playing history, and
                 what this coach brings to the gym each week.
@@ -58,7 +58,7 @@ const coaches = [
         Dynasty coaches are here to develop players, not just run drills. That
         means correcting technique in the moment, keeping every athlete moving,
         and building the kind of confidence that makes kids want to come back
-        next Saturday.
+        next Tuesday.
       </p>
     </div>
   </section>
