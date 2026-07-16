@@ -8,14 +8,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <BaseLayout>
   <!-- ============ HERO (dark, full-bleed) ============ -->
   <section class="hero" id="hero">
-    <!-- Placeholder for a future background video. Swap this div for a
-         <video autoplay muted loop playsinline> when footage is ready. -->
+    <!-- Background session footage. Gradient on .hero-media shows first (and
+         stays for reduced-motion users); the video fades in over it. -->
     <div class="hero-media" aria-hidden="true"></div>
-    <!-- ~75% royal-blue tint so white text stays legible over the video. -->
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster={`${base}/media/hero-poster.jpg`}
+      aria-hidden="true"
+    >
+      <source src={`${base}/media/VBhero.mp4`} type="video/mp4" />
+    </video>
+    <!-- ~75% maroon tint so white text stays legible over the video. -->
     <div class="hero-tint" aria-hidden="true"></div>
 
     <div class="hero-content container">
-      <p class="eyebrow hero-eyebrow">Bolton, ON &middot; House League &middot; Est. 2026</p>
+      <p class="eyebrow hero-eyebrow">Caledon, ON &middot; House League &middot; Est. 2026</p>
       <h1 class="hero-title">Train with<br />Intention.</h1>
       <p class="hero-lead">
         A weekly house league built on real coaching and real fundamentals.
@@ -32,7 +44,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <section class="spec container" aria-label="Program at a glance">
     <div class="cell"><span class="k">Program</span><span class="v">House League</span></div>
     <div class="cell"><span class="k">Ages</span><span class="v">11&ndash;16</span></div>
-   <div class="cell"><span class="k">Cadence</span><span class="v">Tuesdays<br>6:30 - 8:00pm</span></div>
+   <div class="cell"><span class="k">Cadence</span><span class="v">Tuesdays<br>6:30pm - 8:00pm</span></div>
     <div class="cell"><span class="k">Location</span><span class="v">Macville Public School Bolton, ON</span></div>
   </section>
 
@@ -47,7 +59,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         player gets real reps.
       </p>
       <p class="linkrow"><a class="gold-link" href={`${base}/house-league`}>See the full program &rsaquo;</a></p>
-      <div class="shot" aria-hidden="true"></div>
+      <img
+        class="shot"
+        src={`${base}/media/session1.jpg`}
+        alt="A Dynasty player training during a house league session"
+        width="640"
+        height="858"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   </section>
 
@@ -105,6 +125,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       radial-gradient(120% 120% at 72% 12%, rgba(201, 162, 39, 0.18), transparent 55%),
       linear-gradient(150deg, #86123E 0%, #560A26 55%, #3E0719 100%);
   }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
   .hero-tint {
     position: absolute;
     inset: 0;
@@ -112,6 +140,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     opacity: 0.72; /* tune down once real video sits behind it */
     mix-blend-mode: multiply;
   }
+  /* Respect reduced-motion: don't autoplay — show the poster still instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video { display: none; }
+    .hero-media {
+      background-image:
+        linear-gradient(150deg, rgba(134, 18, 62, 0.35), rgba(62, 7, 25, 0.35)),
+        url('/media/hero-poster.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
   .hero-content { position: relative; z-index: 1; padding-top: var(--header-h); }
   .hero-eyebrow { color: var(--gold); margin: 0 0 18px; }
   .hero-title { color: #fff; font-size: clamp(44px, 8vw, 74px); }
@@ -159,12 +199,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   .linkrow { margin: 18px 0 0; }
   .shot {
     margin: 36px auto 0;
+    width: 100%;
     max-width: 780px;
     height: 320px;
+    object-fit: cover;
+    object-position: center 65%;
     border-radius: 22px;
-    background:
-      radial-gradient(120% 120% at 38% 20%, rgba(201, 162, 39, 0.18), transparent 55%),
-      linear-gradient(140deg, #BE2A60, #A1174A 65%, #6E0E32);
     box-shadow: 0 18px 44px rgba(110, 14, 50, 0.2);
   }
 
