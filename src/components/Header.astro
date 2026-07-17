@@ -7,7 +7,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const links = {
   left: [
     { label: 'House League', href: `${base}/house-league` },
-    { label: 'Coaches', href: `${base}/coaches` },
+    // Coaches page hidden until staff is confirmed — re-add to reconnect.
+    // { label: 'Coaches', href: `${base}/coaches` },
   ],
   right: [
     { label: 'About', href: `${base}/about` },
@@ -56,7 +57,8 @@ const links = {
   <!-- Mobile menu panel -->
   <div class="mobile-menu" id="mobileMenu" hidden>
     <a href={`${base}/house-league`}>House League</a>
-    <a href={`${base}/coaches`}>Coaches</a>
+    {/* Coaches page hidden until staff is confirmed — re-add to reconnect. */}
+    {/* <a href={`${base}/coaches`}>Coaches</a> */}
     <a href={`${base}/about`}>About</a>
     <a href={`${base}/contact`}>Contact</a>
     <a href={`${base}/join`} class="cta-join cta-join--block">Join</a>

@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const methods = [
-  { k: 'Email', v: 'hello@dynastyvb.ca', href: 'mailto:hello@dynastyvb.ca' },
+  { k: 'Email', v: 'dynastyvolleyballcaledon@gmail.com', href: 'mailto:dynastyvolleyballcaledon@gmail.com' },
   { k: 'Phone', v: 'To be announced', href: null },
   { k: 'Location', v: 'Bolton, Ontario', href: null },
   { k: 'Response time', v: 'Usually within a couple of days', href: null },
@@ -46,14 +46,18 @@ const methods = [
       <div class="form-card">
         <h3 class="form-title">Send a message</h3>
         <p class="form-sub">Fields marked with * are required.</p>
-        <form class="form" novalidate>
+        <form
+          class="form"
+          action="https://formspree.io/f/xlgqjzqo"
+          method="POST"
+        >
           <div class="field">
             <label for="name">Name *</label>
-            <input id="name" name="name" type="text" autocomplete="name" />
+            <input id="name" name="name" type="text" autocomplete="name" required />
           </div>
           <div class="field">
             <label for="cemail">Email *</label>
-            <input id="cemail" name="email" type="email" autocomplete="email" />
+            <input id="cemail" name="email" type="email" autocomplete="email" required />
           </div>
           <div class="field">
             <label for="subject">Subject</label>
@@ -61,19 +65,58 @@ const methods = [
           </div>
           <div class="field">
             <label for="message">Message *</label>
-            <textarea id="message" name="message" placeholder="How can we help?"></textarea>
+            <textarea id="message" name="message" placeholder="How can we help?" required></textarea>
           </div>
+          <!-- Sets the email subject line Formspree uses when notifying you -->
+          <input type="hidden" name="_subject" value="New message from the Dynasty website" />
           <button class="btn-silver form-submit" type="submit">Send message</button>
-          <p class="form-note">This form isn’t connected yet — we’ll wire it to email in a later step.</p>
+          <p class="form-status" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
     </div>
   </section>
 
   <script>
-    // Form isn't wired up yet — block submission so field values never
-    // end up in the URL / browser history via a default GET submit.
-    document.querySelector('.form')?.addEventListener('submit', (e) => e.preventDefault());
+    // Progressive enhancement: submit to Formspree via fetch so the visitor
+    // stays on the page and sees an inline result. If JS is unavailable the
+    // form still works via its action/method POST (Formspree's own page).
+    const form = document.querySelector('.form') as HTMLFormElement | null;
+    const status = form?.querySelector('.form-status') as HTMLElement | null;
+    const submitBtn = form?.querySelector('.form-submit') as HTMLButtonElement | null;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form || !status) return;
+
+      status.hidden = false;
+      status.className = 'form-status';
+      status.textContent = 'Sending…';
+      if (submitBtn) submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          form.reset();
+          status.classList.add('is-success');
+          status.textContent = 'Thanks — your message is on its way. We usually reply within a couple of days.';
+        } else {
+          const data = await res.json().catch(() => null);
+          const msg = data?.errors?.map((err: { message: string }) => err.message).join(', ');
+          status.classList.add('is-error');
+          status.textContent = msg || 'Something went wrong. Please email us directly instead.';
+        }
+      } catch {
+        status.classList.add('is-error');
+        status.textContent = 'Network error. Please check your connection or email us directly.';
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
   </script>
 
   <CtaBand
@@ -136,6 +179,11 @@ const methods = [
   .form-title { color: var(--maroon); font-family: var(--font-disp); font-weight: 700; font-size: 26px; }
   .form-sub { color: var(--grey); font-size: 14px; margin: 8px 0 22px; }
   .form-submit { margin-top: 4px; justify-self: start; }
+  .form-submit:disabled { opacity: 0.6; cursor: default; }
+
+  .form-status { margin: 14px 0 0; font-size: 14px; line-height: 1.5; }
+  .form-status.is-success { color: var(--maroon); font-weight: 600; }
+  .form-status.is-error { color: #B00020; font-weight: 600; }
 
   @media (max-width: 860px) {
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
